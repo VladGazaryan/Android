@@ -12,9 +12,10 @@ public class Model {
     public Date         date         = new Date();
     public Model() {}
 
-    private class City
+    public class City
     {
-        String name,country;
+        private String name,country;
+
 
         public String getCountry() {return country;}
 
@@ -25,9 +26,9 @@ public class Model {
         public void setName(String name) {this.name = name;}
     }
 
-    private class Temperature
+    public class Temperature
     {
-        float min,current,max;
+        private float min,current,max;
 
         public float getCurrent() {return current;}
 
@@ -41,9 +42,9 @@ public class Model {
 
         public void setMin(float min) {this.min = min;}
     }
-    private class PH
+    public class PH
     {
-        float pressure,humidity;
+        private float pressure,humidity;
 
         public float getHumidity() {return humidity;}
 
@@ -53,9 +54,9 @@ public class Model {
 
         public void setPressure(float pressure) {this.pressure = pressure;}
     }
-    private class Weather
+    public class Weather
     {
-        String main,description;
+        private String main,description;
 
         public String getDescription() {return description;}
 
@@ -65,25 +66,25 @@ public class Model {
 
         public void setMain(String main) {this.main = main;}
     }
-    private class Image
+    public class Image
     {
-        String icon;
+        private String icon;
 
         public String getIcon() {return icon;}
 
         public void setIcon(String icon) {this.icon = icon;}
     }
-    private class Clouds
+    public class Clouds
     {
-        int all;
+        private int all;
 
         public int getAll() {return all;}
 
         public void setAll(int all) {this.all = all;}
     }
-    private class Wind
+    public class Wind
     {
-        float speed,deg;
+        private float speed,deg;
 
         public float getDeg() {return deg;}
 
@@ -93,9 +94,9 @@ public class Model {
 
         public void setSpeed(float speed) {this.speed = speed;}
     }
-    private class Date
+    public class Date
     {
-        String dt_txt;
+        private String dt_txt;
 
         public String getDt_txt() {return dt_txt;}
 
