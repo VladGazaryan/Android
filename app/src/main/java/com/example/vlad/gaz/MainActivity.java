@@ -1,14 +1,14 @@
 package com.example.vlad.gaz;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.vlad.gaz.Activities.WeatherList;
 import com.example.vlad.gaz.Model.Model;
 import com.example.vlad.gaz.Model.Parser;
 
@@ -20,7 +20,7 @@ import java.io.IOException;
 public class MainActivity extends Activity {
     TextView json;
     Button btngetjson;
-    Integer count;
+    Intent intent;
     HttpUrlConnection httpUrlConnection;
     public  final static String TAG = "TAG: ";
     @Override
@@ -41,38 +41,31 @@ public class MainActivity extends Activity {
         });
     }
 
-    public class Get extends AsyncTask<Void,Model,Model>
+    public class Get extends AsyncTask<Object, Object, JSONObject>
     {
-        Model model = new Model();
-        Parser parser = new Parser();
+        JSONObject jsonObject;
 
         @Override
-        protected Model doInBackground(Void... params) {
+        protected JSONObject doInBackground(Object... params) {
             httpUrlConnection = new HttpUrlConnection();
-
-            JSONObject jsonObject = new JSONObject();
+            jsonObject = new JSONObject();
             try {
                 jsonObject = httpUrlConnection.HttpRequest("Rostov-na-Donu");
-                count= Integer.valueOf(jsonObject.getString("cnt"));
-               Log.e(TAG,"JSON: "+count);
-
-                    model = parser.getData(jsonObject);
-
-                    Log.e(TAG, "MODEL: " + model.temperature.getCurrent());
-
 
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return model;
+            return jsonObject;
         }
         @Override
-        protected void onPostExecute(Model post) {
+        protected void onPostExecute(JSONObject post) {
             super.onPostExecute(post);
-            //json.setText(model.weather.getDescription());
-
+            intent = new Intent(getApplicationContext(), WeatherList.class);
+            intent.putExtra("MODEL",jsonObject.toString());
+            startActivity(intent);
+            finish();
         }
     }
 

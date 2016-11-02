@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Map;
 
 
 public class Parser {
@@ -15,24 +14,22 @@ public class Parser {
     JSONObject city_obj,main_obj,weather_obj,item,clouds_obj,wind_obj;
     JSONArray list_arr,weather_arr;
     String date_txt;
-    public Model getData(JSONObject jsonObject) throws JSONException {
+    public Model getData(JSONObject jsonObject,int time) throws JSONException {
         model = new Model();
-
         city_obj = jsonObject.getJSONObject("city");
         model.city.setName(getString("name", city_obj));
         model.city.setCountry(getString("country", city_obj));
 
-        list_arr =jsonObject.getJSONArray("list");
+            list_arr =jsonObject.getJSONArray("list");
+        Log.e(TAG,"LIST LENGTH "+ list_arr.length());
+            item        = list_arr.getJSONObject(time);
 
-
-            item        = list_arr.getJSONObject(1);
             main_obj    = item.getJSONObject("main");
             weather_arr = item.getJSONArray("weather");
             weather_obj = weather_arr.getJSONObject(0);
             clouds_obj  = item.getJSONObject("clouds");
             wind_obj    = item.getJSONObject("wind");
             date_txt    = item.getString("dt_txt");
-
 
             model.temperature.setCurrent(getFloat("temp",main_obj));
             model.temperature.setMin(getFloat("temp_min",main_obj));
@@ -47,10 +44,7 @@ public class Parser {
             model.wind.setDeg(getFloat("deg",wind_obj));
             model.date.setDt_txt(date_txt);
 
-
-        Log.e(TAG,"PARSER: "+date_txt);
         return model;
-
     }
 
 

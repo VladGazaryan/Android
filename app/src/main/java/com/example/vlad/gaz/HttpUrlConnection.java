@@ -17,7 +17,7 @@ enum HttpType
     GET,POST
 }
 public class HttpUrlConnection {
-    private final static String api_key = "&mode=json&units=metric&cnt=7&APPID=7b5abb359df4f893ab31852495726aa0";
+    private final static String api_key = "&mode=json&units=metric&APPID=7b5abb359df4f893ab31852495726aa0";
     private final static String addres = "http://api.openweathermap.org/data/2.5/forecast?q=";
     URL                 url;
     HttpURLConnection   httpURLConnection;
